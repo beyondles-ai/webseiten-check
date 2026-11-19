@@ -1,23 +1,358 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="20">
 <title>Webseiten-Check</title>
+<meta name="description" content="Prüfe deine Webseite: Ist alles da, ist der Aufbau sauber, findet Google sie und versteht eine KI wie ChatGPT, was deine Firma macht?">
 <style>
-  body { margin: 0; background: #0A0E1A; color: #fff; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; display: flex; min-height: 100vh; align-items: center; justify-content: center; text-align: center; padding: 24px; box-sizing: border-box; }
-  h1 { font-size: 28px; margin: 0 0 12px; }
-  p { color: #C7CEDD; font-size: 18px; line-height: 1.5; max-width: 36ch; margin: 0 auto 16px; }
-  .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #9652E8; animation: pulse 1.4s infinite; margin-bottom: 20px; }
-  @keyframes pulse { 0%,100% { opacity: .3; transform: scale(.8);} 50% { opacity: 1; transform: scale(1.2);} }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#0A0E1A;color:#FFFFFF;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding:16px 16px 40px}
+header h1{font-size:28px;margin:12px 0 4px}
+header p{margin:0 0 16px;color:#C7CEDD}
+.card{background:#161E33;border:1px solid #24304C;border-radius:16px;padding:16px;margin:0 0 16px}
+.card.big{border-color:#9652E8;padding:20px 16px}
+.card.grey{opacity:.7}
+form{display:flex;flex-direction:column;gap:12px}
+input[type=text]{width:100%;font:inherit;font-size:18px;padding:14px;border-radius:12px;border:1px solid #24304C;background:#0A0E1A;color:#FFFFFF}
+input[type=text]:focus,button:focus-visible,summary:focus-visible,.seg label:focus-within{outline:3px solid #9652E8;outline-offset:2px}
+.seg{display:flex;gap:8px}
+.seg label{flex:1;text-align:center;padding:12px 8px;border:1px solid #24304C;border-radius:12px;color:#C7CEDD;cursor:pointer;font-size:15px}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:checked){border-color:#9652E8;background:rgba(150,82,232,.2);color:#FFFFFF}
+button.go{font:inherit;font-size:19px;font-weight:700;padding:15px;border:0;border-radius:12px;background:#9652E8;color:#FFFFFF;cursor:pointer;min-height:54px}
+button.go:disabled{opacity:.6}
+button.chip{font:inherit;padding:10px 16px;border-radius:999px;border:1px solid #9652E8;background:transparent;color:#FFFFFF;cursor:pointer;margin-top:8px}
+.muted{color:#C7CEDD}
+.small{font-size:15px}
+.center{text-align:center}
+.spinner{width:44px;height:44px;border:5px solid #24304C;border-top-color:#9652E8;border-radius:50%;animation:spin 1s linear infinite;margin:8px auto 12px}
+.spinner.mini{width:18px;height:18px;border-width:3px;display:inline-block;vertical-align:-3px;margin:0 8px 0 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.total{display:flex;align-items:center;gap:16px}
+.ring{flex:none;width:104px;height:104px;border-radius:50%;display:grid;place-items:center}
+.ring span{width:84px;height:84px;border-radius:50%;background:#161E33;display:grid;place-items:center;font-size:34px;font-weight:800}
+.total h2{margin:0;font-size:22px}
+.url{word-break:break-all}
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.head h2,.head h3{margin:0;font-size:19px;word-break:break-word}
+.big .head h2{font-size:23px}
+.badge{flex:none;min-width:52px;text-align:center;padding:4px 12px;border-radius:999px;font-weight:800;color:#0A0E1A;font-size:18px}
+.big .badge{font-size:24px;padding:6px 16px}
+.badge.small{font-size:15px;min-width:44px;padding:3px 10px}
+.g{background:#2EBD85}.y{background:#F5B942}.r{background:#E5484D;color:#FFFFFF}.n{background:#24304C;color:#C7CEDD}
+ul.f{list-style:none;margin:0;padding:0}
+ul.f li{display:flex;gap:10px;padding:7px 0;border-top:1px solid #24304C}
+ul.f li:first-child{border-top:0}
+.ic{flex:none;width:22px;text-align:center;font-weight:800}
+.ic.good{color:#2EBD85}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-top:7px}
+details{margin-top:6px}
+summary{cursor:pointer;color:#C7CEDD;padding:10px 0;font-size:15px}
+.ai{margin-top:12px;padding:12px;border-radius:12px;background:#0A0E1A;border:1px solid #24304C}
+.ai h3{margin:0 0 6px;font-size:16px}
+.ai p{margin:0 0 6px}
+h4{margin:14px 0 4px;font-size:15px;color:#C7CEDD;font-weight:600}
+.sect{font-size:20px;margin:24px 0 12px}
+footer{text-align:center;color:#C7CEDD;font-size:14px;margin-top:32px}
 </style>
 </head>
 <body>
-<main>
-  <span class="dot"></span>
-  <h1>Hier entsteht gerade eine Anwendung.</h1>
-  <p>Diese Seite lädt sich alle 20 Sekunden neu.</p>
-</main>
+<div class="wrap">
+  <header>
+    <h1>Webseiten-Check</h1>
+    <p>Wie gut ist deine Webseite? Und versteht eine KI, was deine Firma macht?</p>
+  </header>
+
+  <div class="card">
+    <form id="form">
+      <input type="text" id="url" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="deine-firma.de" aria-label="Webadresse">
+      <div class="seg">
+        <label><input type="radio" name="pages" value="0"> Nur Startseite</label>
+        <label><input type="radio" name="pages" value="5" checked> Startseite + 5 Unterseiten</label>
+      </div>
+      <button class="go" id="go" type="submit">Prüfen</button>
+    </form>
+  </div>
+
+  <main id="out" aria-live="polite"></main>
+
+  <footer>Gebaut live beim 4. HÄRTING KI-Tag, 19.11.2026</footer>
+</div>
+
+<script>
+const HELPER_URL = "https://check.beyondles.ai";
+
+const out = document.getElementById("out");
+const form = document.getElementById("form");
+const urlInput = document.getElementById("url");
+const goBtn = document.getElementById("go");
+let run = 0;      // token to ignore outdated responses
+let state = null; // { data, ai: { status: "loading" | "ok" | "fail", score, summary, missing } }
+
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const color = s => s >= 80 ? "g" : s >= 50 ? "y" : "r";
+const hex = s => s >= 80 ? "#2EBD85" : s >= 50 ? "#F5B942" : "#E5484D";
+const clamp = n => Math.max(0, Math.min(100, Math.round(Number(n) || 0)));
+
+// One check: p = points earned (0..1), w = weight, sev = severity when not ok
+function chk(p, w, good, bad, sev) {
+  p = p === true ? 1 : p === false ? 0 : p;
+  const ok = p >= 1;
+  return { p, w, ok, sev: ok ? "good" : (sev || "warn"), text: ok ? good : bad };
+}
+function scoreOf(checks) {
+  const w = checks.reduce((a, c) => a + c.w, 0);
+  return w ? Math.round(checks.reduce((a, c) => a + c.p * c.w, 0) / w * 100) : 0;
+}
+
+async function getJson(url, opts) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), 45000);
+  try {
+    const res = await fetch(url, Object.assign({ signal: ctrl.signal }, opts || {}));
+    let json = null;
+    try { json = await res.json(); } catch (e) {}
+    return { status: res.status, json };
+  } finally { clearTimeout(t); }
+}
+
+// ---------- rules ----------
+function altCheck(img, w) {
+  const total = (img && img.total) || 0, miss = (img && img.withoutAlt) || 0;
+  const p = total ? 1 - miss / total : 1;
+  return chk(p, w,
+    total ? "Alle " + total + " Bilder haben einen Alternativtext (Bildbeschreibung)." : "Auf der Seite sind keine Bilder ohne Beschreibung.",
+    miss + " von " + total + " Bildern haben keinen Alternativtext. Beschreib bei jedem Bild kurz, was darauf zu sehen ist.",
+    p < 0.5 ? "bad" : "warn");
+}
+function wordsCheck(n, w) {
+  n = n || 0;
+  return chk(n >= 300 ? 1 : n >= 150 ? 0.5 : 0, w,
+    "Die Seite hat genug Text (" + n + " Wörter).",
+    "Die Seite hat nur " + n + " Wörter. Schreib mindestens 300 Wörter darüber, was ihr anbietet.",
+    n < 150 ? "bad" : "warn");
+}
+function h1Check(h1, w) {
+  const n = (h1 || []).length;
+  return chk(n === 1, w,
+    "Die Seite hat genau eine Hauptüberschrift (H1).",
+    n === 0 ? "Die Hauptüberschrift (H1) fehlt. Gib der Seite genau eine klare Hauptüberschrift."
+            : "Die Seite hat " + n + " Hauptüberschriften (H1). Nimm nur eine, der Rest wird Zwischenüberschrift.",
+    n === 0 ? "bad" : "warn");
+}
+function titleCheck(t, w) {
+  return chk(!!t, w, "Die Seite hat einen Titel.", "Der Seitentitel fehlt. Gib der Seite einen Titel mit Firmenname und Angebot.", "bad");
+}
+function descCheck(d, w) {
+  return chk(!!d, w, "Die Seite hat eine Beschreibung für Suchergebnisse.",
+    "Die Beschreibung für Suchergebnisse fehlt. Schreib zwei Sätze, was ihr anbietet und für wen.", "bad");
+}
+
+// Rules that work for the start page and for subpages
+function pageChecks(p) {
+  return [titleCheck(p.title, 1), descCheck(p.metaDescription, 1), h1Check(p.h1, 1), wordsCheck(p.wordCount, 1), altCheck(p.images, 1)];
+}
+
+function completeness(d) {
+  return [
+    titleCheck(d.title, 1), descCheck(d.metaDescription, 1), h1Check(d.h1, 1),
+    chk(!!d.lang, 1, "Die Sprache der Seite ist angegeben (" + esc(d.lang) + ").", "Die Sprache der Seite ist nicht angegeben. Trag im Seitenkopf die Sprache ein, zum Beispiel Deutsch."),
+    chk(!!d.canonical, 1, "Die Hauptadresse der Seite (canonical) ist angegeben.", "Die Hauptadresse der Seite (canonical) fehlt. Gib an, welche Adresse die richtige ist, damit nichts doppelt zählt."),
+    chk(!!d.viewport, 1, "Die Seite ist für Handys eingestellt.", "Die Einstellung für Handys (viewport) fehlt. Ohne sie wird die Seite auf dem Handy winzig dargestellt.", "bad"),
+    altCheck(d.images, 1), wordsCheck(d.wordCount, 1)
+  ];
+}
+function structure(d) {
+  const h1 = (d.h1 || []).length, h2 = (d.h2 || []).length, h3 = (d.h3 || []).length;
+  return [
+    chk(h1 + h2 + h3 > 0, 1, "Die Seite ist mit Überschriften gegliedert.", "Die Seite hat keine Überschriften. Gliedere den Text mit Überschriften, damit man ihn schnell erfasst.", "bad"),
+    h1Check(d.h1, 1),
+    chk(!(h3 > 0 && h2 === 0), 1, "Die Reihenfolge der Überschriften ist sauber.", "Es gibt kleine Überschriften (H3), aber keine Zwischenüberschriften (H2). Bau die Stufen der Reihe nach auf."),
+    wordsCheck(d.wordCount, 1), altCheck(d.images, 1),
+    chk(!!d.viewport, 1, "Die Seite passt sich an Handy-Bildschirme an.", "Die Seite passt sich nicht an Handys an. Lass die Einstellung für Handys (viewport) ergänzen.", "bad")
+  ];
+}
+function seo(d) {
+  const tl = (d.title || "").length, dl = (d.metaDescription || "").length, og = d.openGraph || {};
+  const noindex = /noindex/i.test(d.robotsMeta || "");
+  return [
+    chk(tl >= 30 && tl <= 60, 1, "Der Titel hat eine gute Länge (" + tl + " Zeichen).",
+      tl ? "Der Titel hat " + tl + " Zeichen. Ideal sind 30 bis 60, damit Google ihn ganz anzeigt." : "Der Seitentitel fehlt. Schreib einen Titel mit 30 bis 60 Zeichen.", tl ? "warn" : "bad"),
+    chk(dl >= 70 && dl <= 160, 1, "Die Beschreibung für Suchergebnisse hat eine gute Länge (" + dl + " Zeichen).",
+      dl ? "Die Beschreibung für Suchergebnisse hat " + dl + " Zeichen. Ideal sind 70 bis 160." : "Die Beschreibung für Suchergebnisse fehlt. Schreib 70 bis 160 Zeichen, was ihr anbietet und für wen.", dl ? "warn" : "bad"),
+    chk((d.h1 || []).length > 0, 1, "Eine Hauptüberschrift (H1) ist da.", "Die Hauptüberschrift (H1) fehlt. Google liest sie als Thema der Seite.", "bad"),
+    chk(!!d.canonical, 1, "Die Hauptadresse der Seite (canonical) ist angegeben.", "Die Hauptadresse der Seite (canonical) fehlt. Gib sie an, damit Google keine doppelten Seiten sieht."),
+    chk(!noindex, 2, "Google darf die Seite in die Suche aufnehmen.", "Die Seite verbietet Suchmaschinen die Aufnahme (noindex). Nimm das heraus, sonst findet dich niemand.", "bad"),
+    chk(!!(d.sitemap && d.sitemap.found), 1, "Eine Sitemap (Liste aller Seiten für Suchmaschinen) ist da.", "Es gibt keine Sitemap. Leg eine Liste aller Seiten an, damit Google nichts übersieht."),
+    chk(!!d.https, 1, "Die Seite ist verschlüsselt erreichbar (https).", "Die Seite läuft ohne Verschlüsselung (https). Stell auf https um, sonst warnen Browser vor ihr.", "bad"),
+    chk(!!og.title, 1, "Für geteilte Links ist ein Titel hinterlegt.", "Für geteilte Links fehlt ein Titel (Open Graph). Leg einen fest, damit Links in WhatsApp und LinkedIn gut aussehen."),
+    chk(!!og.image, 1, "Für geteilte Links ist ein Vorschaubild hinterlegt.", "Für geteilte Links fehlt ein Vorschaubild (Open Graph). Leg ein Bild fest, das beim Teilen erscheint.")
+  ];
+}
+const BOTS = [["GPTBot", "ChatGPT"], ["ClaudeBot", "Claude"], ["PerplexityBot", "Perplexity"], ["Google-Extended", "Google Gemini"]];
+function geoRules(d) {
+  const ai = (d.robotsTxt && d.robotsTxt.aiCrawlers) || {};
+  const blocked = BOTS.filter(b => ai[b[0]] === "blocked");
+  const types = d.jsonLdTypes || [];
+  const org = types.some(t => /Organization|LocalBusiness/i.test(t));
+  const dl = (d.metaDescription || "").length;
+  const list = [];
+  if (!blocked.length) list.push(chk(true, 40, "KI-Dienste wie ChatGPT, Claude, Perplexity und Gemini dürfen deine Seite lesen.", ""));
+  else {
+    list.push(chk(1 - blocked.length / BOTS.length, 40, "", blocked.map(b => b[1]).join(", ") + (blocked.length > 1 ? " sind" : " ist") + " in deiner robots.txt (Regeln für Suchroboter) gesperrt. Gib " + (blocked.length > 1 ? "sie" : "den Dienst") + " frei, damit die KI deine Seite lesen darf.", "bad"));
+  }
+  list.push(chk(!!(d.llmsTxt && d.llmsTxt.found), 15, "Eine llms.txt (Kurzinfo für KI-Assistenten) ist vorhanden.", "Es gibt keine llms.txt. Leg diese kurze Textdatei an, die KI-Assistenten erklärt, wer ihr seid und was ihr anbietet."));
+  list.push(chk(types.length > 0, 20, "Die Seite liefert strukturierte Daten (maschinenlesbare Angaben): " + esc(types.slice(0, 5).join(", ")) + ".", "Es fehlen strukturierte Daten (maschinenlesbare Angaben zur Firma). Hinterleg Name, Angebot und Ort so, dass eine KI sie sicher erkennt.", "bad"));
+  list.push(chk(org, 10, "Deine Firma ist in den strukturierten Daten als Unternehmen ausgewiesen.", "In den strukturierten Daten fehlt der Eintrag für die Firma (Organization oder LocalBusiness). Ergänz ihn mit Name, Adresse und Angebot."));
+  list.push(chk(dl >= 50, 15, "Die Beschreibung der Seite ist klar genug für eine KI.", dl ? "Die Beschreibung der Seite ist sehr kurz. Schreib zwei klare Sätze, was ihr anbietet und für wen." : "Es gibt keine Beschreibung, aus der eine KI euer Angebot ablesen kann. Schreib zwei klare Sätze, was ihr anbietet und für wen.", dl ? "warn" : "bad"));
+  return list;
+}
+
+// ---------- rendering ----------
+function icon(sev) {
+  return sev === "good" ? '<span class="ic good">✓</span>' : '<span class="ic"><span class="dot ' + (sev === "bad" ? "r" : "y") + '"></span></span>';
+}
+function li(f) { return "<li>" + icon(f.sev) + "<span>" + f.text + "</span></li>"; }
+// Shows at most 6 entries, the rest is collapsible
+function listHtml(items, moreLabel) {
+  if (!items.length) return "";
+  const first = items.slice(0, 6), rest = items.slice(6);
+  let h = '<ul class="f">' + first.join("") + "</ul>";
+  if (rest.length) h += "<details><summary>" + rest.length + " weitere " + (moreLabel || "Befunde") + " anzeigen</summary><ul class=\"f\">" + rest.join("") + "</ul></details>";
+  return h;
+}
+function findingsHtml(checks) {
+  const order = { bad: 0, warn: 1, good: 2 };
+  return listHtml(checks.slice().sort((a, b) => order[a.sev] - order[b.sev]).map(li));
+}
+function areaCard(title, score, checks, extra, big) {
+  return '<section class="card' + (big ? " big" : "") + '"><div class="head"><h2>' + title + '</h2><span class="badge ' + color(score) + '">' + score + "</span></div>" +
+    (extra || "") + findingsHtml(checks) + "</section>";
+}
+function pageCard(label, p, headings) {
+  if (p.ok === false) {
+    return '<section class="card grey"><div class="head"><h3>' + esc(label) + '</h3><span class="badge small n">–</span></div>' +
+      '<p class="muted small url">' + esc(p.url) + '</p><p class="muted">Nicht geprüft: ' + esc(p.reason || "unbekannter Grund") + "</p></section>";
+  }
+  const checks = pageChecks(p), s = scoreOf(checks);
+  let h = '<section class="card"><div class="head"><h3>' + esc(label) + '</h3><span class="badge small ' + color(s) + '">' + s + "</span></div>" +
+    '<p class="muted small url">' + esc(p.finalUrl || p.url) + "</p>" + findingsHtml(checks);
+  if (headings && headings.length) {
+    h += "<h4>Überschriften der Seite</h4>" + listHtml(headings.map(t => '<li><span class="ic muted">›</span><span>' + esc(t) + "</span></li>"), "Überschriften");
+  }
+  return h + "</section>";
+}
+function aiBox(ai) {
+  if (ai.status === "loading") return '<div class="ai"><span class="spinner mini"></span>KI-Bewertung läuft …</div>';
+  if (ai.status === "fail") return '<div class="ai muted">KI-Bewertung gerade nicht verfügbar. Gewertet wurden nur die festen Regeln.</div>';
+  return '<div class="ai"><div class="head"><h3>So versteht dich eine KI</h3><span class="badge small ' + color(ai.score) + '">' + ai.score + "</span></div>" +
+    "<p>" + esc(ai.summary) + "</p>" +
+    (ai.missing.length ? '<ul class="f">' + ai.missing.map(m => li({ sev: "warn", text: esc(m) })).join("") + "</ul>" : "") + "</div>";
+}
+
+function render() {
+  const d = state.data, ai = state.ai;
+  const cC = completeness(d), cA = structure(d), cS = seo(d), cG = geoRules(d);
+  const sC = scoreOf(cC), sA = scoreOf(cA), sS = scoreOf(cS), sR = scoreOf(cG);
+  // GEO: rules and AI rating count half each; rules only when AI is missing
+  const sG = ai.status === "ok" ? Math.round((sR + ai.score) / 2) : sR;
+  // GEO is the most important area and weighs double
+  const total = Math.round((sG * 2 + sC + sA + sS) / 5);
+  const verdict = total >= 80 ? "Stark. Nur Feinschliff nötig." : total >= 50 ? "Solide, aber mit Lücken." : "Hier ist viel zu holen.";
+  const subs = d.subpages || [];
+  const headings = (d.h1 || []).concat(d.h2 || [], d.h3 || []);
+
+  let h = '<section class="card total"><div class="ring" style="background:conic-gradient(' + hex(total) + " " + total * 3.6 + 'deg,#24304C 0)"><span>' + total + "</span></div>" +
+    '<div><h2>Gesamtnote</h2><p class="muted" style="margin:2px 0">' + verdict + '</p><p class="muted small url" style="margin:0">' + esc(d.finalUrl || d.url) + "</p></div></section>";
+  h += areaCard("KI-Auffindbarkeit (GEO)", sG, cG,
+    '<p class="muted small" style="margin:0 0 8px">Der wichtigste Bereich: Versteht eine KI wie ChatGPT, was deine Firma macht, und darf sie deine Seite lesen?</p>' + aiBox(ai) + "<h4>Feste Regeln</h4>", true);
+  h += areaCard("Vollständigkeit", sC, cC);
+  h += areaCard("Aussehen &amp; Aufbau", sA, cA);
+  h += areaCard("Suchmaschinen (SEO)", sS, cS);
+  h += '<h2 class="sect">Seite für Seite</h2>';
+  h += pageCard("Startseite" + (d.title ? ": " + d.title : ""), d, headings);
+  subs.forEach((p, i) => { h += pageCard(p.title || "Unterseite " + (i + 1), p); });
+  out.innerHTML = h;
+}
+
+function showEmpty() {
+  out.innerHTML = '<div class="card center"><p style="margin:0">Gib die Adresse deiner Webseite ein. Du bekommst Punkte für vier Bereiche und konkrete Tipps, was fehlt.</p>' +
+    '<p class="muted small" style="margin:12px 0 0">Zum Ausprobieren:</p><button class="chip" type="button" id="example">beyondles.ai</button></div>';
+  document.getElementById("example").onclick = () => { urlInput.value = "beyondles.ai"; form.requestSubmit(); };
+}
+function showError(msg) { out.innerHTML = '<div class="card"><div class="head"><h2>Das hat nicht geklappt</h2><span class="badge small r">!</span></div><p style="margin:0">' + esc(msg) + "</p></div>"; }
+function showLoading(pages) {
+  out.innerHTML = '<div class="card center"><div class="spinner"></div><p style="margin:0">Seite wird geholt …</p>' +
+    (pages ? '<p class="muted small" style="margin:6px 0 0">Mit Unterseiten dauert das bis zu 20 Sekunden. Das ist normal.</p>' : "") + "</div>";
+}
+
+const REASONS = {
+  "gesperrt": "Diese Webseite lässt keine automatische Prüfung zu. Das machen manche Seiten mit Schutzdiensten. Probier eine andere Adresse.",
+  "zeitüberschreitung": "Die Webseite hat zu lange gebraucht.",
+  "nicht erreichbar": "Diese Webseite ist nicht erreichbar. Stimmt die Adresse?",
+  "ungültige adresse": "Das ist keine gültige öffentliche Webadresse."
+};
+const UNREACHABLE = "Der Prüfdienst ist gerade nicht erreichbar. Bitte gleich noch einmal versuchen.";
+
+async function askAi(d, my) {
+  const prompt = "Du bewertest eine Firmenwebseite. Hier sind die Daten der Startseite:\n" +
+    "Titel: " + (d.title || "-") + "\n" +
+    "Beschreibung: " + (d.metaDescription || "-") + "\n" +
+    "H1: " + ((d.h1 || []).join(" | ") || "-") + "\n" +
+    "H2: " + ((d.h2 || []).slice(0, 15).join(" | ") || "-") + "\n" +
+    "Text: " + (d.textExcerpt || "-") + "\n\n" +
+    "Wie gut versteht ein KI-Assistent wie ChatGPT aus diesem Text, wer die Firma ist, was sie anbietet und für wen? Würde er sie empfehlen?\n" +
+    'Antworte nur als JSON, ohne weiteren Text: {"score": 0-100, "summary": "ein Satz", "missing": ["...", "..."]}\n' +
+    "Regeln: Deutsch, Du-Form. summary höchstens 25 Wörter. missing höchstens 3 Punkte, jeder höchstens 15 Wörter, jeweils eine konkrete Empfehlung. Nichts Rechtliches erwähnen.";
+  let ai = { status: "fail" };
+  try {
+    const r = await getJson(HELPER_URL + "/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: prompt, maxTokens: 1500 }) });
+    if (r.json && r.json.ok && typeof r.json.text === "string") {
+      const t = r.json.text, a = t.indexOf("{"), b = t.lastIndexOf("}");
+      const j = JSON.parse(t.slice(a, b + 1));
+      if (j && j.score != null && !isNaN(Number(j.score))) {
+        ai = { status: "ok", score: clamp(j.score), summary: String(j.summary || ""), missing: (Array.isArray(j.missing) ? j.missing : []).slice(0, 3).map(String) };
+      }
+    }
+  } catch (e) {}
+  if (my !== run) return;
+  state.ai = ai;
+  render();
+}
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const address = urlInput.value.trim();
+  if (!address) { urlInput.focus(); return; }
+  const pages = form.elements.pages.value === "0" ? 0 : 5;
+  const my = ++run;
+  try { localStorage.setItem("wc-url", address); } catch (err) {}
+  goBtn.disabled = true;
+  showLoading(pages);
+  try {
+    const r = await getJson(HELPER_URL + "/fetch?url=" + encodeURIComponent(address) + "&pages=" + pages);
+    if (my !== run) return;
+    const d = r.json;
+    if (r.status === 429) showError((d && d.reason) || "Zu viele Prüfungen. Bitte kurz warten.");
+    else if (!d) showError(UNREACHABLE);
+    else if (!d.ok) showError(REASONS[d.reason] || "Die Prüfung hat nicht geklappt. Bitte gleich noch einmal versuchen.");
+    else {
+      state = { data: d, ai: { status: "loading" } };
+      render();
+      askAi(d, my);
+    }
+  } catch (err) {
+    if (my === run) showError(UNREACHABLE);
+  } finally {
+    if (my === run) goBtn.disabled = false;
+  }
+});
+
+try { urlInput.value = localStorage.getItem("wc-url") || ""; } catch (err) {}
+showEmpty();
+</script>
 </body>
 </html>
